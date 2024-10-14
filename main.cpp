@@ -37,7 +37,17 @@ void generateEllipseVertices(float* vertices, float centerX, float centerY, floa
     }
 }
 
+//切换键盘展示方式
+bool displayToggle = false;  // 用于切换展示状态的标志变量
+bool changeDisplayFun = false;
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_O && action == GLFW_PRESS) {
+        displayToggle = !displayToggle;  // 切换展示状态
+    }
 
+    if (key == GLFW_KEY_C && action == GLFW_PRESS)
+        changeDisplayFun = !changeDisplayFun;
+}
 
 
 // 导入着色器，初始化窗口
@@ -202,8 +212,11 @@ void init(GLFWwindow* window)
     glEnableVertexAttribArray(vColorLoc);
 }
 
+//display函数类型
+typedef void (*display)(GLFWwindow*, double);
+
 // 绘制函数
-void display(GLFWwindow* window, double currentTime)
+void displayChanging(GLFWwindow* window, double currentTime)
 {
     glUseProgram(renderingProgram);
 
@@ -245,6 +258,51 @@ void display(GLFWwindow* window, double currentTime)
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
+void displayNormal(GLFWwindow* window, double currentTime)
+{
+    glUseProgram(renderingProgram);
+
+    glClearColor(0.2f, 0.5f, 0.8f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // 计算缩放系数，使用 sin 函数生成周期性变化
+
+    float scaleX = 1.0f;  // X 方向的缩放系数在 0 到 1 之间
+    float scaleY = 1.0f;//0.5f + 0.5f * cos(currentTime);  // Y 方向的缩放系数在 0 到 1 之间
+    if (displayToggle)
+    {
+        scaleX = 3.5f;
+    }
+    // 动态生成椭圆顶点数据
+    float vertices[2 * (num_segments + 2)];
+    generateEllipseVertices(vertices, -0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
+    // 更新 第一个椭圆 VBO 中的顶点数据
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+    generateEllipseVertices(vertices, 0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
+    // 更新 第一个椭圆 VBO 中的顶点数据
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[6]);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+    // 绘制两个圆形
+    glBindVertexArray(vao[0]);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, num_segments + 2);
+    glBindVertexArray(vao[2]);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, num_segments + 2);
+
+
+    // 绘制两个椭圆
+    glBindVertexArray(vao[1]);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, num_segments + 2);
+    glBindVertexArray(vao[3]);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, num_segments + 2);
+
+    //绘制三角形
+    glBindVertexArray(vao[4]);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -254,6 +312,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 #ifdef OLDRUN
 int main(void)
 {
+    display displayFunc = displayNormal;
+
     // glfw 初始化
     if (!glfwInit())
     {
@@ -277,13 +337,20 @@ int main(void)
     // 窗口大小改变的回调函数
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+    // 注册键盘事件回调
+    glfwSetKeyCallback(window, keyCallback);
+
     // 导入着色器，创建和绑定VAO和VBO
     init(window);
 
     // 事件循环
     while (!glfwWindowShouldClose(window))
     {
-        display(window, glfwGetTime());
+        if (changeDisplayFun)
+            displayFunc = displayNormal;
+        else
+            displayFunc = displayChanging;
+        displayFunc(window, glfwGetTime());
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
