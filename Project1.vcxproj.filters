@@ -20,17 +20,19 @@
     <None Include="fragShader.glsl" />
     <None Include="vertShader.glsl" />
     <None Include="geomShader.glsl" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\SquareAndTriangle\SquareAndTriangle\Utils.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SquareAndTriangle\SquareAndTriangle\oldmain.cpp">
+    <ClCompile Include="Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\SquareAndTriangle\SquareAndTriangle\Utils.h">
+    <ClInclude Include="Utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

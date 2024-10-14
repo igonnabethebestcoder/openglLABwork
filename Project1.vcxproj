@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
     <None Include="fragShader.glsl" />
     <None Include="glew32.dll" />
     <None Include="glfw3.dll" />
@@ -144,11 +146,11 @@
     <None Include="geomShader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\SquareAndTriangle\SquareAndTriangle\oldmain.cpp" />
-    <ClCompile Include="..\..\SquareAndTriangle\SquareAndTriangle\Utils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\SquareAndTriangle\SquareAndTriangle\Utils.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
