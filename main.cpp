@@ -39,6 +39,7 @@ void generateEllipseVertices(float* vertices, float centerX, float centerY, floa
 
 //切换键盘展示方式
 bool displayToggle = false;  // 用于切换展示状态的标志变量
+bool curDisplay = false;
 bool changeDisplayFun = false;
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_O && action == GLFW_PRESS) {
@@ -265,26 +266,6 @@ void displayNormal(GLFWwindow* window, double currentTime)
     glClearColor(0.2f, 0.5f, 0.8f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // 计算缩放系数，使用 sin 函数生成周期性变化
-
-    float scaleX = 1.0f;  // X 方向的缩放系数在 0 到 1 之间
-    float scaleY = 1.0f;//0.5f + 0.5f * cos(currentTime);  // Y 方向的缩放系数在 0 到 1 之间
-    if (displayToggle)
-    {
-        scaleX = 3.5f;
-    }
-    // 动态生成椭圆顶点数据
-    float vertices[2 * (num_segments + 2)];
-    generateEllipseVertices(vertices, -0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
-    // 更新 第一个椭圆 VBO 中的顶点数据
-    glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-
-    generateEllipseVertices(vertices, 0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
-    // 更新 第一个椭圆 VBO 中的顶点数据
-    glBindBuffer(GL_ARRAY_BUFFER, vbo[6]);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-
     // 绘制两个圆形
     glBindVertexArray(vao[0]);
     glDrawArrays(GL_TRIANGLE_FAN, 0, num_segments + 2);
@@ -350,6 +331,29 @@ int main(void)
             displayFunc = displayNormal;
         else
             displayFunc = displayChanging;
+
+        if (displayFunc == displayNormal)
+        {
+            // 计算缩放系数，使用 sin 函数生成周期性变化
+            float scaleX = (!displayToggle)?1.0f:3.5f;  // X 方向的缩放系数在 0 到 1 之间
+            float scaleY = 1.0f;//0.5f + 0.5f * cos(currentTime);  // Y 方向的缩放系数在 0 到 1 之间
+            if (curDisplay != displayToggle)
+            {
+                curDisplay = displayToggle;
+                // 动态生成椭圆顶点数据
+                float vertices[2 * (num_segments + 2)];
+                generateEllipseVertices(vertices, -0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
+                // 更新 第一个椭圆 VBO 中的顶点数据
+                glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+                glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+                generateEllipseVertices(vertices, 0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
+                // 更新 第一个椭圆 VBO 中的顶点数据
+                glBindBuffer(GL_ARRAY_BUFFER, vbo[6]);
+                glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+            }
+        }
+
         displayFunc(window, glfwGetTime());
         glfwSwapBuffers(window);
         glfwPollEvents();
