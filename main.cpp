@@ -18,7 +18,7 @@ GLuint vbo[numVBOs];
 
 // 圆形的顶点数据
 const int num_segments = 100;  // 圆形分段数（决定圆的平滑度）
-
+//here
 // 生成椭圆的顶点
 // 生成椭圆的顶点，传入中心点
 // 生成椭圆的顶点，传入中心点，缩放系数scaleX, scaleY
@@ -37,10 +37,12 @@ void generateEllipseVertices(float* vertices, float centerX, float centerY, floa
     }
 }
 
+//here
 //切换键盘展示方式
 bool displayToggle = false;  // 用于切换展示状态的标志变量
-bool curDisplay = false;
+bool curDisplayToggle = false;
 bool changeDisplayFun = false;
+bool curchangeDisplayFun = false;
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_O && action == GLFW_PRESS) {
         displayToggle = !displayToggle;  // 切换展示状态
@@ -213,6 +215,7 @@ void init(GLFWwindow* window)
     glEnableVertexAttribArray(vColorLoc);
 }
 
+//here
 //display函数类型
 typedef void (*display)(GLFWwindow*, double);
 
@@ -324,6 +327,7 @@ int main(void)
     // 导入着色器，创建和绑定VAO和VBO
     init(window);
 
+    //here
     // 事件循环
     while (!glfwWindowShouldClose(window))
     {
@@ -335,11 +339,27 @@ int main(void)
         if (displayFunc == displayNormal)
         {
             // 计算缩放系数，使用 sin 函数生成周期性变化
-            float scaleX = (!displayToggle)?1.0f:3.5f;  // X 方向的缩放系数在 0 到 1 之间
+            float scaleX = (!displayToggle) ? 1.0f : 3.5f;  // X 方向的缩放系数在 0 到 1 之间
             float scaleY = 1.0f;//0.5f + 0.5f * cos(currentTime);  // Y 方向的缩放系数在 0 到 1 之间
-            if (curDisplay != displayToggle)
+
+            if (curchangeDisplayFun != changeDisplayFun)
             {
-                curDisplay = displayToggle;
+                curchangeDisplayFun = changeDisplayFun;
+                float vertices[2 * (num_segments + 2)];
+                generateEllipseVertices(vertices, -0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
+                // 更新 第一个椭圆 VBO 中的顶点数据
+                glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+                glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+                generateEllipseVertices(vertices, 0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);
+                // 更新 第一个椭圆 VBO 中的顶点数据
+                glBindBuffer(GL_ARRAY_BUFFER, vbo[6]);
+                glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+            }
+
+            if (curDisplayToggle != displayToggle)
+            {
+                curDisplayToggle = displayToggle;
                 // 动态生成椭圆顶点数据
                 float vertices[2 * (num_segments + 2)];
                 generateEllipseVertices(vertices, -0.5f, 0.25f, 0.1f, 0.35f, scaleX, scaleY, num_segments);

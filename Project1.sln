@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project1", "Project1.vcxproj", "{7D5A2E57-79CC-4A6B-A4F4-35F8B52FFA8A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gasket3D", "..\gasket3D\gasket3D.vcxproj", "{11EF436D-49AB-482D-AF56-06894741E5DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{7D5A2E57-79CC-4A6B-A4F4-35F8B52FFA8A}.Release|x64.Build.0 = Release|x64
 		{7D5A2E57-79CC-4A6B-A4F4-35F8B52FFA8A}.Release|x86.ActiveCfg = Release|Win32
 		{7D5A2E57-79CC-4A6B-A4F4-35F8B52FFA8A}.Release|x86.Build.0 = Release|Win32
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Debug|x64.ActiveCfg = Debug|x64
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Debug|x64.Build.0 = Debug|x64
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Debug|x86.ActiveCfg = Debug|Win32
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Debug|x86.Build.0 = Debug|Win32
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Release|x64.ActiveCfg = Release|x64
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Release|x64.Build.0 = Release|x64
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Release|x86.ActiveCfg = Release|Win32
+		{11EF436D-49AB-482D-AF56-06894741E5DA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
