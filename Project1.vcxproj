@@ -139,18 +139,21 @@
   <ItemGroup>
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
-    <None Include="fragShader.glsl" />
     <None Include="glew32.dll" />
     <None Include="glfw3.dll" />
-    <None Include="vertShader.glsl" />
-    <None Include="geomShader.glsl" />
+    <None Include="Shader\fragShader.glsl" />
+    <None Include="Shader\geomShader.glsl" />
+    <None Include="Shader\vertShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ImportedModel\ImportedModel.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="road\road.cpp" />
+    <ClCompile Include="Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="ImportedModel\ImportedModel.h" />
+    <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

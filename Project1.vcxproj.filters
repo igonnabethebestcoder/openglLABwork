@@ -17,22 +17,31 @@
   <ItemGroup>
     <None Include="glew32.dll" />
     <None Include="glfw3.dll" />
-    <None Include="fragShader.glsl" />
-    <None Include="vertShader.glsl" />
-    <None Include="geomShader.glsl" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
+    <None Include="Shader\vertShader.glsl" />
+    <None Include="Shader\geomShader.glsl" />
+    <None Include="Shader\fragShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Utils.cpp">
+    <ClCompile Include="Utils\Utils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ImportedModel\ImportedModel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="road\road.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h">
+    <ClInclude Include="Utils\Utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ImportedModel\ImportedModel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
