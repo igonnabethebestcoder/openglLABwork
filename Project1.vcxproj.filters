@@ -19,29 +19,38 @@
     <None Include="glfw3.dll" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
-    <None Include="Shader\vertShader.glsl" />
-    <None Include="Shader\geomShader.glsl" />
-    <None Include="Shader\fragShader.glsl" />
+    <None Include="src\Shader\vertShader.glsl" />
+    <None Include="src\Shader\geomShader.glsl" />
+    <None Include="src\Shader\fragShader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Utils.cpp">
+    <ClCompile Include="src\Utils\Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ImportedModel\ImportedModel.cpp">
+    <ClCompile Include="src\ImportedModel\ImportedModel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="road\road.cpp">
+    <ClCompile Include="src\road\road.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\myModel\Model.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils\Utils.h">
+    <ClInclude Include="src\Utils\Utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ImportedModel\ImportedModel.h">
+    <ClInclude Include="src\ImportedModel\ImportedModel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\myModel\Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\myModel\ModelManager.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
